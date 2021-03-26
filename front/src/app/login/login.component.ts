@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { NgBootStrapArrowDirective, SortEvent } from './../common/directive/ng-boot-strap-arrow.directive';
+import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 
 interface Country {
   id: number;
@@ -38,6 +39,7 @@ const COUNTRIES: Country[] = [
   }
 ];
 
+const compare = (v1: string | number, v2: string | number) => v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -46,13 +48,34 @@ const COUNTRIES: Country[] = [
 export class LoginComponent implements OnInit {
 
   countries: Country[] = COUNTRIES;
+  @ViewChildren(NgBootStrapArrowDirective) headers: QueryList<NgBootStrapArrowDirective>;
 
 
   constructor() { }
 
   ngOnInit(): void {
+ //  console.log(this.headers.notifyOnChanges() , "nosso Headers")
+
   }
 
+  onSort({column, direction}: SortEvent) {
+   // resetting other headers
+    this.headers.forEach(header => {
+      if (header.sortable !== column) {
+        header.direction = '';
+      }
+    });
+    //sorting countries
+    if (direction === '' || column === '') {
+      this.countries = COUNTRIES;
+     }
+    else {
+      this.countries = [...COUNTRIES].sort((a, b) => {
+        const res = compare(a[column], b[column]);
+        return direction === 'asc' ? res : -res;
+      });
+    }
+  }
 
 
 }

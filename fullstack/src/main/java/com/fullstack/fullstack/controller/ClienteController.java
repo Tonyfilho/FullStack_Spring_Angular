@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 public class ClienteController {   
     
-@GetMapping()
+@GetMapping("/hello")
 public  String Hello() {
  return "Ola meu retorno";
 

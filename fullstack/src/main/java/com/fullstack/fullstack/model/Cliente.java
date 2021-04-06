@@ -1,6 +1,5 @@
 package com.fullstack.fullstack.model;
 
-import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,9 +8,10 @@ import javax.persistence.Id;
 
 import lombok.Data;
 
-@Data //Gera todos o Gets e Set, construtores e Hash e Equals
+// ClienteGera todos o Gets e Set, construtores e Hash e Equals
+@Data
 @Entity
-public class Clientes {
+public class Cliente {
 
 
     @Id
